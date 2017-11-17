@@ -1,12 +1,15 @@
 package com.ws.service;
 
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebResult;
 import javax.jws.WebService;
 
-@WebService(endpointInterface="com.ws.service.Hello")
+@WebService(endpointInterface="com.ws.service.Hello", name="Hello")
 public class HelloImpl implements Hello {
 
-	@Override
-	public String hello(String name) {
+	@WebResult(name="message", partName="message")
+	public String hello(@WebParam(name="name",partName="name") String name) {
 		return "Hello " + name;
 	}
 

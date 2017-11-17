@@ -7,6 +7,11 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>ws Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  <properties>
+	  <cxf.version>3.2.1</cxf.version>
+	</properties>
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -18,12 +23,12 @@
     <dependency>
 	    <groupId>org.apache.cxf</groupId>
 	    <artifactId>cxf-rt-frontend-jaxws</artifactId>
-	    <version>3.1.6</version>
+	    <version>${cxf.version}</version>
 	</dependency>
 	<dependency>
 	    <groupId>org.apache.cxf</groupId>
 	    <artifactId>cxf-rt-transports-http</artifactId>
-	    <version>3.1.6</version>
+	    <version>${cxf.version}</version>
 	</dependency>
     
     <dependency>

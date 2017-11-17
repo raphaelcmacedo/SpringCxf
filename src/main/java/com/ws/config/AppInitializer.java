@@ -11,7 +11,6 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 
 public class AppInitializer implements WebApplicationInitializer {
 
-	@Override
 	public void onStartup(ServletContext container) throws ServletException {
 		AnnotationConfigWebApplicationContext context 
 		  = new AnnotationConfigWebApplicationContext();
