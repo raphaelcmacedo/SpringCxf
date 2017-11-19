@@ -2,12 +2,29 @@ package com.ws.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="Site")
-public class Site {
+@Entity
+@Table(name="SITE")
+public class Site implements GenericEntity {
+	@Id
+	@Column(name="SITE_ID")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SITE_SEQ")
+	@SequenceGenerator(name = "SITE_SEQ", sequenceName = "SITE_SEQ",allocationSize = 1)  
 	private int id;
+	@Column(name="NAME")
 	private String name;
+	
+	@OneToMany(mappedBy="site")
 	private List<Employee> employees;
 	
 	public Site() {

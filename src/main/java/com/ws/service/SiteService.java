@@ -8,13 +8,16 @@ import javax.ws.rs.Produces;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ws.entity.Site;
 import com.ws.repository.SiteRepository;
 
-@Controller
+@Service @Transactional
 @Path("site")
-@Produces("text/xml")	
+@Produces("text/xml")
 public class SiteService {
 
 	@Autowired
