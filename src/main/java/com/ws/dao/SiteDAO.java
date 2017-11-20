@@ -17,5 +17,10 @@ public class SiteDAO extends GenericDAO<Site> implements SiteRepository {
         List<Site> result = (List<Site>) criteria.list();
         return result;
 	}
+	
+	public Site findById(int id){
+		Site site = (Site) super.getCurrentSession().get(Site.class, id);
+		return site;
+	}
 
 }

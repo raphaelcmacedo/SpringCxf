@@ -20,7 +20,8 @@ public abstract class GenericDAO<T extends GenericEntity> {
 	
 	public T save(T entity){
 		Session s = this.getCurrentSession();
-		return (T) s.save(entity);
+		s.saveOrUpdate(entity);
+		return entity;
 	}
 	
 	public void delete (T entity){

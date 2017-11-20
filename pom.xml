@@ -91,6 +91,18 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/ojdbc6.jar</systemPath>
 		</dependency>
+		
+		<!-- <dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jaxrs</artifactId>
+			<version>2.2.1.GA</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.jboss.resteasy</groupId>
+			<artifactId>resteasy-jackson-provider</artifactId>
+			<version>2.2.1.GA</version>
+		</dependency> -->
 
 
 	</dependencies>

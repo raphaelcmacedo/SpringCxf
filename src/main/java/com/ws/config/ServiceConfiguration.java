@@ -81,7 +81,7 @@ public class ServiceConfiguration {
 		dataSource.setUser(username);
 		dataSource.setPassword(password);
 		dataSource.setURL(url);
-		dataSource.setImplicitCachingEnabled(false);
+		dataSource.setImplicitCachingEnabled(true);
 		dataSource.setFastConnectionFailoverEnabled(true);
 		return dataSource;
 	}
@@ -112,7 +112,6 @@ public class ServiceConfiguration {
 				setProperty("hibernate.show_sql",
 						env.getProperty("hibernate.show_sql"));
 				setProperty("hibernate.globally_quoted_identifiers", "true");
-				setProperty("hibernate.id.new_generator_mappings", "true");
 			}
 		};
 	}
