@@ -5,17 +5,19 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ws.entity.GenericEntity;
 
 @Repository
+@Transactional(propagation=Propagation.REQUIRED)
 public abstract class GenericDAO<T extends GenericEntity> {
 	@Autowired
 	SessionFactory sessionFactory;
 
 	protected Session getCurrentSession() {
-		//return sessionFactory.getCurrentSession();
-		return sessionFactory.openSession();
+		return sessionFactory.getCurrentSession();
 	}
 	
 	public T save(T entity){

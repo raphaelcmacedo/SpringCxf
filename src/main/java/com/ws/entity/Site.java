@@ -24,9 +24,6 @@ public class Site implements GenericEntity {
 	@Column(name="NAME")
 	private String name;
 	
-	@OneToMany(mappedBy="site")
-	private List<Employee> employees;
-	
 	public Site() {
 		
 	}
@@ -49,12 +46,5 @@ public class Site implements GenericEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public List<Employee> getEmployees() {
-		return employees;
-	}
-	public void setEmployees(List<Employee> employees) {
-		this.employees = employees;
-	}
-	
 	
 }

@@ -64,12 +64,12 @@ public class RestClient extends TestCase {
 
 		Site site = new Site();
 		site.setId(22);
-		site.setName("Nova Friburgo");
+		site.setName("Belgium");
 		JAXB.marshal(site, connection.getOutputStream());
 		
 		Site result = JAXB.unmarshal(new InputStreamReader(connection.getInputStream()), Site.class);
 		connection.disconnect();
 		
-		Assert.assertEquals("Nova Friburgo", result.getName()); 
+		Assert.assertEquals("Belgium", result.getName()); 
 	}
 }

@@ -23,58 +23,28 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ws.entity.Site;
 import com.ws.repository.SiteRepository;
 
-@Service @Transactional
-@Path("site")
-@Consumes("text/xml")
-@Produces("text/xml")
+@Service
+@Transactional(propagation = Propagation.REQUIRED)
 public class SiteService {
 
 	@Autowired
 	private SiteRepository repository;
-	
-	@GET
-	@Path("")
-	public List<Site> listAll(){
+
+	public List<Site> listAll() {
 		return repository.listAll();
 	}
-	
-	@GET
-	@Path("{id}")
-	public Site findById(@PathParam("id")int id){
+
+	public Site findById(@PathParam("id") int id) {
 		return repository.findById(id);
 	}
-	
-	@POST
-	@Path("")
-	public Response create(Site site){
-		return this.save(site);
+
+	public Site save(Site site) {
+		return repository.save(site);
 	}
-	
-	@PUT
-	@Path("")
-	public Response update(Site site){
-		return this.save(site);
-	}
-	
-	@DELETE
-	@Path("{id}")
-	public Response delete(@PathParam("id")int id){
-		try{
-			Site site = repository.findById(id);
-			repository.delete(site);
-			return Response.ok().build();	
-		}catch(Exception e){
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
-		
-	}
-	
-	private Response save(Site site){
-		try{
-			repository.save(site);
-			return Response.ok(site).build();
-		}catch (Exception e){
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
-		}
+
+	public Response delete(@PathParam("id") int id) {
+		Site site = repository.findById(id);
+		repository.delete(site);
+		return Response.ok().build();
 	}
 }

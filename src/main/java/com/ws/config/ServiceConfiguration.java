@@ -24,6 +24,7 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.ws.controller.SiteController;
 import com.ws.service.HelloImpl;
 import com.ws.service.SiteService;
 
@@ -34,7 +35,7 @@ import com.ws.service.SiteService;
 public class ServiceConfiguration {
 
 	@Autowired
-	private SiteService siteService;
+	private SiteController siteController;
 	@Resource
 	public Environment env;
 
@@ -53,7 +54,7 @@ public class ServiceConfiguration {
 	@Bean
 	public org.apache.cxf.endpoint.Server jaxRsServer() {
 		JAXRSServerFactoryBean factoryBean = new JAXRSServerFactoryBean();
-		factoryBean.setServiceBean(siteService);
+		factoryBean.setServiceBean(siteController);
 		factoryBean.setAddress("http://localhost:8081/api/");
 		return factoryBean.create();
 	}
@@ -97,11 +98,11 @@ public class ServiceConfiguration {
 		return txManager;
 	}
 
-	@Bean
-	public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-		return new PersistenceExceptionTranslationPostProcessor();
-	}
-
+	/*
+	 * @Bean public PersistenceExceptionTranslationPostProcessor
+	 * exceptionTranslation() { return new
+	 * PersistenceExceptionTranslationPostProcessor(); }
+	 */
 	Properties hibernateProperties() {
 		return new Properties() {
 			{

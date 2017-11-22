@@ -20,7 +20,6 @@ public class AppInitializer implements WebApplicationInitializer {
 		
 		ServletRegistration.Dynamic dispatcher 
 		  = container.addServlet("dispatcher", new CXFServlet());
-		
 	}
 
 }

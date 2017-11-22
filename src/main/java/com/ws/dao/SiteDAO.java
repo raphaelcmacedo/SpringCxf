@@ -3,13 +3,15 @@ package com.ws.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ws.entity.Site;
 import com.ws.repository.SiteRepository;
 
 @Repository
+@Transactional(propagation=Propagation.REQUIRED)
 public class SiteDAO extends GenericDAO<Site> implements SiteRepository {
 
 	public List<Site> listAll() {
