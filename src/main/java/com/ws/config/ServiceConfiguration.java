@@ -1,6 +1,8 @@
 package com.ws.config;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.Resource;
@@ -19,23 +21,24 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.ws.controller.EmployeeController;
 import com.ws.controller.SiteController;
 import com.ws.service.HelloImpl;
-import com.ws.service.SiteService;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:oracle.properties" })
+@PropertySource({ "classpath:oracle.properties", "classpath:webservice.properties" })
 @ComponentScan(basePackages = { "com.ws" })
 public class ServiceConfiguration {
 
 	@Autowired
 	private SiteController siteController;
+	@Autowired
+	private EmployeeController employeeController;
 	@Resource
 	public Environment env;
 
@@ -45,20 +48,26 @@ public class ServiceConfiguration {
 	}
 
 	@Bean
-	public Endpoint endpoint() {
+	public Endpoint endpointHello() {
+		String basePath = env.getProperty("soap.basepath");
 		EndpointImpl endpoint = new EndpointImpl(springBus(), new HelloImpl());
-		endpoint.publish("http://localhost:8081/ws/services/Hello");
+		endpoint.publish(basePath + "Hello");
 		return endpoint;
 	}
 
 	@Bean
 	public org.apache.cxf.endpoint.Server jaxRsServer() {
+		List<Object> beans = new ArrayList<Object>();
+		beans.add(siteController);
+		beans.add(employeeController);
+		
 		JAXRSServerFactoryBean factoryBean = new JAXRSServerFactoryBean();
-		factoryBean.setServiceBean(siteController);
-		factoryBean.setAddress("http://localhost:8081/api/");
+		factoryBean.setServiceBeans(beans);
+		String basePath = env.getProperty("rest.basepath");
+		factoryBean.setAddress(basePath);
 		return factoryBean.create();
 	}
-
+	
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() throws SQLException {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
