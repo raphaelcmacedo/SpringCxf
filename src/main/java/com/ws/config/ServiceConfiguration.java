@@ -25,13 +25,15 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.ws.controller.EmployeeController;
 import com.ws.controller.SiteController;
 import com.ws.service.HelloImpl;
 
 @Configuration
 @EnableTransactionManagement
-@PropertySource({ "classpath:oracle.properties", "classpath:webservice.properties" })
+@PropertySource({ "classpath:oracle.properties",
+		"classpath:webservice.properties" })
 @ComponentScan(basePackages = { "com.ws" })
 public class ServiceConfiguration {
 
@@ -61,13 +63,18 @@ public class ServiceConfiguration {
 		beans.add(siteController);
 		beans.add(employeeController);
 		
+		List<Object> providers = new ArrayList<>();
+        providers.add(getJsonProvider());
+		
 		JAXRSServerFactoryBean factoryBean = new JAXRSServerFactoryBean();
 		factoryBean.setServiceBeans(beans);
+		factoryBean.setProviders(providers);
+		
 		String basePath = env.getProperty("rest.basepath");
 		factoryBean.setAddress(basePath);
 		return factoryBean.create();
 	}
-	
+
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() throws SQLException {
 		LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
@@ -94,6 +101,11 @@ public class ServiceConfiguration {
 		dataSource.setImplicitCachingEnabled(true);
 		dataSource.setFastConnectionFailoverEnabled(true);
 		return dataSource;
+	}
+
+	@Bean
+	public JacksonJsonProvider getJsonProvider() {
+		return new JacksonJsonProvider();
 	}
 
 	@Bean
