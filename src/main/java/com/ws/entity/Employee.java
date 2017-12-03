@@ -26,10 +26,13 @@ public class Employee implements GenericEntity {
 	@JoinColumn(name="SITE_ID")
 	private Site site;
 	
+	@ManyToOne
+	@JoinColumn(name="POSITION_ID")
+	private Position position;
+	
 	@Column(name="NAME")
 	private String name;
-	@Column(name="POSITION")
-	private String position;
+	
 	
 	public int getId() {
 		return id;
@@ -43,17 +46,17 @@ public class Employee implements GenericEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getPosition() {
-		return position;
-	}
-	public void setPosition(String position) {
-		this.position = position;
-	}
 	public Site getSite() {
 		return site;
 	}
 	public void setSite(Site site) {
 		this.site = site;
+	}
+	public Position getPosition() {
+		return position;
+	}
+	public void setPosition(Position position) {
+		this.position = position;
 	}
 	
 	

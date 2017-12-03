@@ -27,6 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.ws.controller.EmployeeController;
+import com.ws.controller.PositionController;
 import com.ws.controller.SiteController;
 import com.ws.service.HelloImpl;
 
@@ -41,6 +42,8 @@ public class ServiceConfiguration {
 	private SiteController siteController;
 	@Autowired
 	private EmployeeController employeeController;
+	@Autowired
+	private PositionController positionController;
 	@Resource
 	public Environment env;
 
@@ -62,6 +65,7 @@ public class ServiceConfiguration {
 		List<Object> beans = new ArrayList<Object>();
 		beans.add(siteController);
 		beans.add(employeeController);
+		beans.add(positionController);
 		
 		List<Object> providers = new ArrayList<>();
         providers.add(getJsonProvider());

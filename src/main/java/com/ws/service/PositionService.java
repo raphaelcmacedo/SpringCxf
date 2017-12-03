@@ -9,30 +9,30 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ws.entity.Employee;
-import com.ws.repository.EmployeeRepository;
+import com.ws.entity.Position;
+import com.ws.repository.PositionRepository;
 
 @Service
 @Transactional(propagation = Propagation.REQUIRED)
-public class EmployeeService {
+public class PositionService {
 
 	@Autowired
-	private EmployeeRepository repository;
+	private PositionRepository repository;
 
-	public List<Employee> listAll() {
+	public List<Position> listAll() {
 		return repository.listAll();
 	}
 
-	public Employee findById(@PathParam("id") int id) {
+	public Position findById(@PathParam("id") int id) {
 		return repository.findById(id);
 	}
 
-	public Employee save(Employee employee) {
-		return repository.save(employee);
+	public Position save(Position position) {
+		return repository.save(position);
 	}
 
 	public void delete(@PathParam("id") int id) {
-		Employee employee = repository.findById(id);
-		repository.delete(employee);
+		Position position = repository.findById(id);
+		repository.delete(position);
 	}
 }
